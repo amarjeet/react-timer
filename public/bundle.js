@@ -118,18 +118,27 @@
 	    hashHistory = _require.hashHistory;
 	
 	var Main = __webpack_require__(236);
+	var About = __webpack_require__(238);
+	var Timer = __webpack_require__(239);
+	var Countdown = __webpack_require__(240);
 	
 	// Load foundation
-	__webpack_require__(238);
+	__webpack_require__(242);
 	$(document).foundation();
 	
 	// App css
-	__webpack_require__(242);
+	__webpack_require__(246);
 	
 	ReactDOM.render(React.createElement(
 	    Router,
 	    { history: hashHistory },
-	    React.createElement(Route, { path: '/', component: Main })
+	    React.createElement(
+	        Route,
+	        { path: '/', component: Main },
+	        React.createElement(Route, { path: 'about', component: About }),
+	        React.createElement(Route, { path: 'countdown', component: Countdown }),
+	        React.createElement(IndexRoute, { component: Timer })
+	    )
 	), document.getElementById('app'));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
@@ -26450,84 +26459,94 @@
 
 	'use strict';
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
 	var React = __webpack_require__(10);
 	
 	var _require = __webpack_require__(181),
 	    Link = _require.Link,
 	    IndexLink = _require.IndexLink;
 	
-	var Navigation = React.createClass({
-	    displayName: 'Navigation',
+	var Navigation = function (_React$Component) {
+	    _inherits(Navigation, _React$Component);
 	
-	    onSearch: function onSearch(e) {
-	        e.preventDefault();
-	        var location = this.refs.search.value;
-	        var encodedLocation = encodeURIComponent(this.refs.search.value);
-	        if (location && location.length > 0) {
-	            this.refs.search.value = '';
-	            window.location.hash = '#/?location=' + encodedLocation;
-	        }
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            { className: 'top-bar' },
-	            React.createElement(
-	                'div',
-	                { className: 'top-bar-left' },
-	                React.createElement(
-	                    'ul',
-	                    { className: 'menu' },
-	                    React.createElement(
-	                        'li',
-	                        { className: 'menu-text' },
-	                        'React Timer App'
-	                    ),
-	                    React.createElement(
-	                        'li',
-	                        null,
-	                        React.createElement(
-	                            IndexLink,
-	                            { to: '/', activeClassName: 'active-link' },
-	                            'Timer'
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'li',
-	                        null,
-	                        React.createElement(
-	                            Link,
-	                            { to: '/countdown', activeClassName: 'active-link' },
-	                            'Countdown'
-	                        )
-	                    )
-	                )
-	            ),
-	            React.createElement(
-	                'div',
-	                { className: 'top-bar-right' },
-	                React.createElement(
-	                    'ul',
-	                    { className: 'menu' },
-	                    React.createElement(
-	                        'li',
-	                        { className: 'menu-text' },
-	                        'Amarjeet Singh'
-	                    ),
-	                    React.createElement(
-	                        'li',
-	                        null,
-	                        React.createElement(
-	                            Link,
-	                            { to: '/about', activeClassName: 'active-link' },
-	                            'About this application'
-	                        )
-	                    )
-	                )
-	            )
-	        );
+	    function Navigation() {
+	        _classCallCheck(this, Navigation);
+	
+	        return _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).apply(this, arguments));
 	    }
-	});
+	
+	    _createClass(Navigation, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement(
+	                'div',
+	                { className: 'top-bar' },
+	                React.createElement(
+	                    'div',
+	                    { className: 'top-bar-left' },
+	                    React.createElement(
+	                        'ul',
+	                        { className: 'menu' },
+	                        React.createElement(
+	                            'li',
+	                            { className: 'menu-text' },
+	                            'React Timer App'
+	                        ),
+	                        React.createElement(
+	                            'li',
+	                            null,
+	                            React.createElement(
+	                                IndexLink,
+	                                { to: '/', activeClassName: 'active-link' },
+	                                'Timer'
+	                            )
+	                        ),
+	                        React.createElement(
+	                            'li',
+	                            null,
+	                            React.createElement(
+	                                Link,
+	                                { to: '/countdown', activeClassName: 'active-link' },
+	                                'Countdown'
+	                            )
+	                        )
+	                    )
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'top-bar-right' },
+	                    React.createElement(
+	                        'ul',
+	                        { className: 'menu' },
+	                        React.createElement(
+	                            'li',
+	                            { className: 'menu-text' },
+	                            'Amarjeet Singh'
+	                        ),
+	                        React.createElement(
+	                            'li',
+	                            null,
+	                            React.createElement(
+	                                Link,
+	                                { to: '/about', activeClassName: 'active-link' },
+	                                'About this application'
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return Navigation;
+	}(React.Component);
 	
 	module.exports = Navigation;
 
@@ -26535,13 +26554,245 @@
 /* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+	
+	var React = __webpack_require__(10);
+	
+	// const About = React.createClass({
+	//     render: function () {
+	//         return (
+	//             <h3>About Component</h3>
+	//         );
+	//     }
+	// });
+	
+	var About = function About(props) {
+	    return React.createElement(
+	        "div",
+	        null,
+	        React.createElement(
+	            "h1",
+	            { className: "text-center page-title" },
+	            "About"
+	        ),
+	        React.createElement(
+	            "p",
+	            null,
+	            "Weather example application in React. Based on Udemy course."
+	        ),
+	        React.createElement(
+	            "p",
+	            null,
+	            "A few tools used were:"
+	        ),
+	        React.createElement(
+	            "ul",
+	            null,
+	            React.createElement(
+	                "li",
+	                null,
+	                React.createElement(
+	                    "a",
+	                    { href: "https://facebook.github.io/react", target: "_blank" },
+	                    "React"
+	                )
+	            ),
+	            React.createElement(
+	                "li",
+	                null,
+	                React.createElement(
+	                    "a",
+	                    { href: "https://www.heroku.com", target: "_blank" },
+	                    "Heroku"
+	                )
+	            ),
+	            React.createElement(
+	                "li",
+	                null,
+	                React.createElement(
+	                    "a",
+	                    { href: "http://openweathermap.org", target: "_blank" },
+	                    "Open Weather Map"
+	                )
+	            )
+	        )
+	    );
+	};
+	
+	module.exports = About;
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var React = __webpack_require__(10);
+	
+	var Timer = function (_React$Component) {
+	    _inherits(Timer, _React$Component);
+	
+	    function Timer() {
+	        _classCallCheck(this, Timer);
+	
+	        return _possibleConstructorReturn(this, (Timer.__proto__ || Object.getPrototypeOf(Timer)).apply(this, arguments));
+	    }
+	
+	    _createClass(Timer, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement(
+	                'div',
+	                null,
+	                'Timer.jsx'
+	            );
+	        }
+	    }]);
+	
+	    return Timer;
+	}(React.Component);
+	
+	module.exports = Timer;
+
+/***/ },
+/* 240 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var React = __webpack_require__(10);
+	var Clock = __webpack_require__(241);
+	
+	var Countdown = function (_React$Component) {
+	    _inherits(Countdown, _React$Component);
+	
+	    function Countdown() {
+	        _classCallCheck(this, Countdown);
+	
+	        return _possibleConstructorReturn(this, (Countdown.__proto__ || Object.getPrototypeOf(Countdown)).apply(this, arguments));
+	    }
+	
+	    _createClass(Countdown, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement(
+	                'div',
+	                null,
+	                React.createElement(Clock, { totalSeconds: 1259 })
+	            );
+	        }
+	    }]);
+	
+	    return Countdown;
+	}(React.Component);
+	
+	module.exports = Countdown;
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var React = __webpack_require__(10);
+	
+	var Clock = function (_React$Component) {
+	    _inherits(Clock, _React$Component);
+	
+	    function Clock() {
+	        _classCallCheck(this, Clock);
+	
+	        return _possibleConstructorReturn(this, (Clock.__proto__ || Object.getPrototypeOf(Clock)).apply(this, arguments));
+	    }
+	
+	    _createClass(Clock, [{
+	        key: 'formatSeconds',
+	        value: function formatSeconds(totalSeconds) {
+	            var seconds = totalSeconds % 60;
+	            var minutes = Math.floor(totalSeconds / 60);
+	
+	            if (seconds < 10) {
+	                seconds = '0' + seconds;
+	            }
+	
+	            if (minutes < 10) {
+	                minutes = '0' + minutes;
+	            }
+	
+	            return minutes + ':' + seconds;
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var totalSeconds = this.props.totalSeconds;
+	
+	
+	            return React.createElement(
+	                'div',
+	                { className: 'clock' },
+	                React.createElement(
+	                    'span',
+	                    { className: 'clock-text' },
+	                    this.formatSeconds(totalSeconds)
+	                )
+	            );
+	        }
+	    }], [{
+	        key: 'defaultProps',
+	        get: function get() {
+	            return {
+	                totalSeconds: 0
+	            };
+	        }
+	    }, {
+	        key: 'propTypes',
+	        get: function get() {
+	            return {
+	                totalSeconds: React.PropTypes.number
+	            };
+	        }
+	    }]);
+	
+	    return Clock;
+	}(React.Component);
+	
+	module.exports = Clock;
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(239);
+	var content = __webpack_require__(243);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(241)(content, {});
+	var update = __webpack_require__(245)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -26558,10 +26809,10 @@
 	}
 
 /***/ },
-/* 239 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(240)();
+	exports = module.exports = __webpack_require__(244)();
 	// imports
 	
 	
@@ -26572,7 +26823,7 @@
 
 
 /***/ },
-/* 240 */
+/* 244 */
 /***/ function(module, exports) {
 
 	/*
@@ -26628,7 +26879,7 @@
 
 
 /***/ },
-/* 241 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -26880,16 +27131,16 @@
 
 
 /***/ },
-/* 242 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(243);
+	var content = __webpack_require__(247);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(241)(content, {});
+	var update = __webpack_require__(245)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -26906,15 +27157,15 @@
 	}
 
 /***/ },
-/* 243 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(240)();
+	exports = module.exports = __webpack_require__(244)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, ".top-bar, .top-bar ul {\n  background-color: #333333; }\n\n.top-bar .menu-text {\n  color: white; }\n\n.top-bar .menu > .menu-text > a {\n  display: inline;\n  padding: 0; }\n", ""]);
+	exports.push([module.id, ".top-bar, .top-bar ul {\n  background-color: #333333; }\n\n.top-bar .menu-text {\n  color: white; }\n\n.top-bar .menu > .menu-text > a {\n  display: inline;\n  padding: 0; }\n\n.top-bar .active-link {\n  font-weight: bold; }\n\n.clock {\n  align-items: center;\n  background-color: #B5D0E2;\n  border: 2px solid #2099E8;\n  border-radius: 50%;\n  display: flex;\n  height: 14rem;\n  justify-content: center;\n  margin: 4rem auto;\n  width: 14rem; }\n\n.clock-text {\n  color: white;\n  font-size: 2.25rem;\n  font-weight: 300; }\n", ""]);
 	
 	// exports
 
