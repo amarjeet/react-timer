@@ -1,6 +1,7 @@
 const React = require('react');
 const Clock = require('Clock');
 const CountdownForm = require('CountdownForm');
+const Controls = require('Controls');
 
 class Countdown extends React.Component {
 
@@ -11,6 +12,7 @@ class Countdown extends React.Component {
             countdownStatus: 'stopped'
         };
         this.handleSetCountdown = this.handleSetCountdown.bind(this);
+        this.handleStatusChange = this.handleStatusChange.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -18,6 +20,16 @@ class Countdown extends React.Component {
             switch (this.state.countdownStatus) {
                 case 'started': {
                     this.startTimer();
+                    break;
+                }
+
+                case 'stopped': {
+                    this.setState({count: 0});
+                }
+
+                case 'paused': {
+                    clearInterval(this.timer);
+                    this.timer = undefined;
                     break;
                 }
             }
@@ -45,20 +57,29 @@ class Countdown extends React.Component {
             count: seconds,
             countdownStatus: 'started'
         });
+    }
 
-        // this.setState((prevState, props) => (
-        //     prevState = {
-        //         count          : seconds,
-        //         countdownStatus: 'started'
-        //     }));
+    handleStatusChange(newStatus) {
+        this.setState({
+            countdownStatus: newStatus
+        });
     }
 
     render() {
-        const {count} = this.state;
+        const {count, countdownStatus} = this.state;
+
+        const renderControlArea = () => {
+            if (countdownStatus !== 'stopped') {
+                return <Controls countdownStatus={countdownStatus} onStatusChange={this.handleStatusChange}/>;
+            } else {
+                return <CountdownForm onSetCountdown={this.handleSetCountdown}/>;
+            }
+        };
+
         return (
             <div>
                 <Clock totalSeconds={count}/>
-                <CountdownForm onSetCountdown={this.handleSetCountdown}/>
+                {renderControlArea()}
             </div>
         );
     }

@@ -26674,6 +26674,7 @@
 	var React = __webpack_require__(10);
 	var Clock = __webpack_require__(241);
 	var CountdownForm = __webpack_require__(242);
+	var Controls = __webpack_require__(249);
 	
 	var Countdown = function (_React$Component) {
 	    _inherits(Countdown, _React$Component);
@@ -26688,6 +26689,7 @@
 	            countdownStatus: 'stopped'
 	        };
 	        _this.handleSetCountdown = _this.handleSetCountdown.bind(_this);
+	        _this.handleStatusChange = _this.handleStatusChange.bind(_this);
 	        return _this;
 	    }
 	
@@ -26699,6 +26701,18 @@
 	                    case 'started':
 	                        {
 	                            this.startTimer();
+	                            break;
+	                        }
+	
+	                    case 'stopped':
+	                        {
+	                            this.setState({ count: 0 });
+	                        }
+	
+	                    case 'paused':
+	                        {
+	                            clearInterval(this.timer);
+	                            this.timer = undefined;
 	                            break;
 	                        }
 	                }
@@ -26731,23 +26745,37 @@
 	                count: seconds,
 	                countdownStatus: 'started'
 	            });
-	
-	            // this.setState((prevState, props) => (
-	            //     prevState = {
-	            //         count          : seconds,
-	            //         countdownStatus: 'started'
-	            //     }));
+	        }
+	    }, {
+	        key: 'handleStatusChange',
+	        value: function handleStatusChange(newStatus) {
+	            this.setState({
+	                countdownStatus: newStatus
+	            });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var count = this.state.count;
+	            var _this3 = this;
+	
+	            var _state = this.state,
+	                count = _state.count,
+	                countdownStatus = _state.countdownStatus;
+	
+	
+	            var renderControlArea = function renderControlArea() {
+	                if (countdownStatus !== 'stopped') {
+	                    return React.createElement(Controls, { countdownStatus: countdownStatus, onStatusChange: _this3.handleStatusChange });
+	                } else {
+	                    return React.createElement(CountdownForm, { onSetCountdown: _this3.handleSetCountdown });
+	                }
+	            };
 	
 	            return React.createElement(
 	                'div',
 	                null,
 	                React.createElement(Clock, { totalSeconds: count }),
-	                React.createElement(CountdownForm, { onSetCountdown: this.handleSetCountdown })
+	                renderControlArea()
 	            );
 	        }
 	    }]);
@@ -27281,10 +27309,98 @@
 	
 	
 	// module
-	exports.push([module.id, ".top-bar, .top-bar ul {\n  background-color: #333333; }\n\n.top-bar .menu-text {\n  color: white; }\n\n.top-bar .menu > .menu-text > a {\n  display: inline;\n  padding: 0; }\n\n.top-bar .active-link {\n  font-weight: bold; }\n\n.clock {\n  align-items: center;\n  background-color: #B5D0E2;\n  border: 2px solid #2099E8;\n  border-radius: 50%;\n  display: flex;\n  height: 14rem;\n  justify-content: center;\n  margin: 4rem auto;\n  width: 14rem; }\n\n.clock-text {\n  color: white;\n  font-size: 2.25rem;\n  font-weight: 300; }\n", ""]);
+	exports.push([module.id, ".top-bar, .top-bar ul {\n  background-color: #333333; }\n\n.top-bar .menu-text {\n  color: white; }\n\n.top-bar .menu > .menu-text > a {\n  display: inline;\n  padding: 0; }\n\n.top-bar .active-link {\n  font-weight: bold; }\n\n.clock {\n  align-items: center;\n  background-color: #B5D0E2;\n  border: 2px solid #2099E8;\n  border-radius: 50%;\n  display: flex;\n  height: 14rem;\n  justify-content: center;\n  margin: 4rem auto;\n  width: 14rem; }\n\n.clock-text {\n  color: white;\n  font-size: 2.25rem;\n  font-weight: 300; }\n\n.controls {\n  display: flex;\n  justify-content: center; }\n  .controls .button {\n    padding: .75rem 3rem; }\n  .controls .button:first-child {\n    margin-right: 1.5rem; }\n", ""]);
 	
 	// exports
 
+
+/***/ },
+/* 249 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var React = __webpack_require__(10);
+	
+	var Controls = function (_React$Component) {
+	    _inherits(Controls, _React$Component);
+	
+	    function Controls() {
+	        _classCallCheck(this, Controls);
+	
+	        var _this = _possibleConstructorReturn(this, (Controls.__proto__ || Object.getPrototypeOf(Controls)).call(this));
+	
+	        _this.onStatusChange = _this.onStatusChange.bind(_this);
+	        return _this;
+	    }
+	
+	    _createClass(Controls, [{
+	        key: 'onStatusChange',
+	        value: function onStatusChange(newStatus) {
+	            var _this2 = this;
+	
+	            // Note: A curried function is returned --
+	            return function () {
+	                _this2.props.onStatusChange(newStatus);
+	            };
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this3 = this;
+	
+	            var countdownStatus = this.props.countdownStatus;
+	
+	
+	            var renderStartStopButton = function renderStartStopButton() {
+	                if (countdownStatus === 'started') {
+	                    return React.createElement(
+	                        'button',
+	                        { className: 'secondary button', onClick: _this3.onStatusChange('paused') },
+	                        'Pause'
+	                    );
+	                } else {
+	                    return React.createElement(
+	                        'button',
+	                        { className: 'primary button', onClick: _this3.onStatusChange('started') },
+	                        'Start'
+	                    );
+	                }
+	            };
+	
+	            return React.createElement(
+	                'div',
+	                { className: 'controls' },
+	                renderStartStopButton(),
+	                React.createElement(
+	                    'button',
+	                    { className: 'hollow alert button', onClick: this.onStatusChange('stopped') },
+	                    'Clear'
+	                )
+	            );
+	        }
+	    }], [{
+	        key: 'propTypes',
+	        get: function get() {
+	            return {
+	                countdownStatus: React.PropTypes.string.isRequired,
+	                onStatusChange: React.PropTypes.func.isRequired
+	            };
+	        }
+	    }]);
+	
+	    return Controls;
+	}(React.Component);
+	
+	module.exports = Controls;
 
 /***/ }
 /******/ ]);
