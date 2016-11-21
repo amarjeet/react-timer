@@ -56,6 +56,10 @@ class Countdown extends React.Component {
         }, 1000);
     }
 
+    /**
+     * Handle setting of how many seconds to countdown
+     * @param seconds - integer value in seconds
+     */
     handleSetCountdown(seconds) {
         this.setState({
             count: seconds,
@@ -82,6 +86,7 @@ class Countdown extends React.Component {
 
         return (
             <div>
+                <h1 className="page-title">Countdown App</h1>
                 <Clock totalSeconds={count}/>
                 {renderControlArea()}
             </div>
