@@ -123,11 +123,11 @@
 	var Countdown = __webpack_require__(240);
 	
 	// Load foundation
-	__webpack_require__(243);
+	__webpack_require__(244);
 	$(document).foundation();
 	
 	// App css
-	__webpack_require__(247);
+	__webpack_require__(248);
 	
 	ReactDOM.render(React.createElement(
 	    Router,
@@ -26674,7 +26674,7 @@
 	var React = __webpack_require__(10);
 	var Clock = __webpack_require__(241);
 	var CountdownForm = __webpack_require__(242);
-	var Controls = __webpack_require__(249);
+	var Controls = __webpack_require__(243);
 	
 	var Countdown = function (_React$Component) {
 	    _inherits(Countdown, _React$Component);
@@ -26722,6 +26722,7 @@
 	        key: 'componentWillUnmount',
 	        value: function componentWillUnmount() {
 	            clearInterval(this.timer);
+	            this.timer = undefined;
 	        }
 	    }, {
 	        key: 'startTimer',
@@ -26731,7 +26732,10 @@
 	            this.timer = setInterval(function () {
 	                var newCount = _this2.state.count - 1;
 	                if (newCount <= 0) {
-	                    clearInterval(_this2.timer);
+	                    // clearInterval(this.timer);
+	                    _this2.setState({
+	                        countdownStatus: 'stopped'
+	                    });
 	                }
 	                _this2.setState({
 	                    count: newCount > 0 ? newCount : 0
@@ -26930,13 +26934,101 @@
 /* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var React = __webpack_require__(10);
+	
+	var Controls = function (_React$Component) {
+	    _inherits(Controls, _React$Component);
+	
+	    function Controls() {
+	        _classCallCheck(this, Controls);
+	
+	        var _this = _possibleConstructorReturn(this, (Controls.__proto__ || Object.getPrototypeOf(Controls)).call(this));
+	
+	        _this.onStatusChange = _this.onStatusChange.bind(_this);
+	        return _this;
+	    }
+	
+	    _createClass(Controls, [{
+	        key: 'onStatusChange',
+	        value: function onStatusChange(newStatus) {
+	            var _this2 = this;
+	
+	            // Note: A curried function is returned --
+	            return function () {
+	                _this2.props.onStatusChange(newStatus);
+	            };
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this3 = this;
+	
+	            var countdownStatus = this.props.countdownStatus;
+	
+	
+	            var renderStartStopButton = function renderStartStopButton() {
+	                if (countdownStatus === 'started') {
+	                    return React.createElement(
+	                        'button',
+	                        { className: 'secondary button', onClick: _this3.onStatusChange('paused') },
+	                        'Pause'
+	                    );
+	                } else {
+	                    return React.createElement(
+	                        'button',
+	                        { className: 'primary button', onClick: _this3.onStatusChange('started') },
+	                        'Start'
+	                    );
+	                }
+	            };
+	
+	            return React.createElement(
+	                'div',
+	                { className: 'controls' },
+	                renderStartStopButton(),
+	                React.createElement(
+	                    'button',
+	                    { className: 'hollow alert button', onClick: this.onStatusChange('stopped') },
+	                    'Clear'
+	                )
+	            );
+	        }
+	    }], [{
+	        key: 'propTypes',
+	        get: function get() {
+	            return {
+	                countdownStatus: React.PropTypes.string.isRequired,
+	                onStatusChange: React.PropTypes.func.isRequired
+	            };
+	        }
+	    }]);
+	
+	    return Controls;
+	}(React.Component);
+	
+	module.exports = Controls;
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(244);
+	var content = __webpack_require__(245);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(246)(content, {});
+	var update = __webpack_require__(247)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -26953,10 +27045,10 @@
 	}
 
 /***/ },
-/* 244 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(245)();
+	exports = module.exports = __webpack_require__(246)();
 	// imports
 	
 	
@@ -26967,7 +27059,7 @@
 
 
 /***/ },
-/* 245 */
+/* 246 */
 /***/ function(module, exports) {
 
 	/*
@@ -27023,7 +27115,7 @@
 
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -27275,16 +27367,16 @@
 
 
 /***/ },
-/* 247 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(248);
+	var content = __webpack_require__(249);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(246)(content, {});
+	var update = __webpack_require__(247)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -27301,10 +27393,10 @@
 	}
 
 /***/ },
-/* 248 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(245)();
+	exports = module.exports = __webpack_require__(246)();
 	// imports
 	
 	
@@ -27313,94 +27405,6 @@
 	
 	// exports
 
-
-/***/ },
-/* 249 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var React = __webpack_require__(10);
-	
-	var Controls = function (_React$Component) {
-	    _inherits(Controls, _React$Component);
-	
-	    function Controls() {
-	        _classCallCheck(this, Controls);
-	
-	        var _this = _possibleConstructorReturn(this, (Controls.__proto__ || Object.getPrototypeOf(Controls)).call(this));
-	
-	        _this.onStatusChange = _this.onStatusChange.bind(_this);
-	        return _this;
-	    }
-	
-	    _createClass(Controls, [{
-	        key: 'onStatusChange',
-	        value: function onStatusChange(newStatus) {
-	            var _this2 = this;
-	
-	            // Note: A curried function is returned --
-	            return function () {
-	                _this2.props.onStatusChange(newStatus);
-	            };
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this3 = this;
-	
-	            var countdownStatus = this.props.countdownStatus;
-	
-	
-	            var renderStartStopButton = function renderStartStopButton() {
-	                if (countdownStatus === 'started') {
-	                    return React.createElement(
-	                        'button',
-	                        { className: 'secondary button', onClick: _this3.onStatusChange('paused') },
-	                        'Pause'
-	                    );
-	                } else {
-	                    return React.createElement(
-	                        'button',
-	                        { className: 'primary button', onClick: _this3.onStatusChange('started') },
-	                        'Start'
-	                    );
-	                }
-	            };
-	
-	            return React.createElement(
-	                'div',
-	                { className: 'controls' },
-	                renderStartStopButton(),
-	                React.createElement(
-	                    'button',
-	                    { className: 'hollow alert button', onClick: this.onStatusChange('stopped') },
-	                    'Clear'
-	                )
-	            );
-	        }
-	    }], [{
-	        key: 'propTypes',
-	        get: function get() {
-	            return {
-	                countdownStatus: React.PropTypes.string.isRequired,
-	                onStatusChange: React.PropTypes.func.isRequired
-	            };
-	        }
-	    }]);
-	
-	    return Controls;
-	}(React.Component);
-	
-	module.exports = Controls;
 
 /***/ }
 /******/ ]);
